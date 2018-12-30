@@ -2,8 +2,8 @@ pipeline {
     agent any
     
     parameters { 
-         string(name: 'tomcat_dev', defaultValue: 'ec2-54-206-42-148.ap-southeast-2.compute.amazonaws.com', description: 'Staging Server')
-         string(name: 'tomcat_prod', defaultValue: 'ec2-13-211-43-138.ap-southeast-2.compute.amazonaws.com', description: 'Production Server')
+         string(name: 'tomcat_dev', defaultValue: 'ec2-13-54-237-186.ap-southeast-2.compute.amazonaws.com', description: 'Staging Server')
+         string(name: 'tomcat_prod', defaultValue: 'ec2-13-236-182-51.ap-southeast-2.compute.amazonaws.com', description: 'Production Server')
     } 
 
     triggers {
@@ -33,7 +33,7 @@ stages{
 
                 stage ("Deploy to Production"){
                     steps {
-                        sh "scp -i /usr/lib/jenkins/sydney-ec2-key1.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat8/webapps"
+                        sh "scp -i /usr/lib/jenkins/sydney2.pem **/target/*.war ec2-user@${params.tomcat_prod}:/var/lib/tomcat8/webapps"
                     }
                 }
             }

@@ -13,7 +13,7 @@ pipeline {
 stages{
         stage('Build'){
             steps {
-                sh 'mvn clean package'
+                bat 'mvn clean package'
             }
             post {
                 success {
@@ -27,13 +27,13 @@ stages{
             parallel{
                 stage ('Deploy to Staging'){
                     steps {
-                        sh "scp -i /usr/lib/jenkins/sydney-ec2-key1.pem **/target/*.war ec2-user@${params.tomcat_dev}:/usr/share/tomcat8/webapps"
+                        bat "scp -i /usr/lib/jenkins/sydney-ec2-key1.pem **/target/*.war ec2-user@${params.tomcat_dev}:/usr/share/tomcat8/webapps"
                     }
                 }
 
                 stage ("Deploy to Production"){
                     steps {
-                        sh "scp -i /usr/lib/jenkins/sydney2.pem **/target/*.war ec2-user@${params.tomcat_prod}:/usr/share/tomcat8/webapps"
+                        bat "scp -i /usr/lib/jenkins/sydney2.pem **/target/*.war ec2-user@${params.tomcat_prod}:/usr/share/tomcat8/webapps"
                     }
                 }
             }
